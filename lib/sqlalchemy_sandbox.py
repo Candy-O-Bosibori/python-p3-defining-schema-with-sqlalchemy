@@ -1,12 +1,21 @@
 #!/usr/bin/env python3
 
-from sqlalchemy import Column, Integer, String, create_engine
+from datetime import datetime
+
+from sqlalchemy import (create_engine, desc, func,
+    CheckConstraint, PrimaryKeyConstraint, UniqueConstraint,
+    Index, Column, DateTime, Integer, String)
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 
 class Student(Base):
-    pass
+    __tablename__ = 'students'
+
+    id = Column(Integer(), primary_key=True)
+    name = Column(String())
 
 if __name__ == '__main__':
-    pass 
+    engine = create_engine('sqlite:///:memory:')
+    Base.metadata.create_all(engine)
